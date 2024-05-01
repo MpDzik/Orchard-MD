@@ -6,6 +6,7 @@ using Orchard.DynamicForms.Services;
 using Orchard.DynamicForms.ViewModels;
 using Orchard.Localization;
 using Orchard.Mvc;
+using Orchard.Mvc.Extensions;
 using Orchard.UI.Admin;
 using Orchard.UI.Navigation;
 using Orchard.UI.Notify;
@@ -57,7 +58,7 @@ namespace Orchard.DynamicForms.Controllers {
 
             _formService.DeleteSubmission(submission);
             _services.Notifier.Information(T("That submission has been deleted."));
-            return Redirect(Request.UrlReferrer.ToString());
+            return this.RedirectLocal(Request.UrlReferrer.ToString());
         }
 
         [FormValueRequired("submit.BulkEdit")]
@@ -72,7 +73,7 @@ namespace Orchard.DynamicForms.Controllers {
                 _services.Notifier.Information(T("{0} submissions have been deleted.", numDeletedSubmissions));
             }
 
-            return Redirect(Request.UrlReferrer.ToString());
+            return this.RedirectLocal(Request.UrlReferrer.ToString());
         }
 
         public ActionResult Export(string id) =>

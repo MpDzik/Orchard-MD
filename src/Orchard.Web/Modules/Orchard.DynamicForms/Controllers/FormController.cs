@@ -6,6 +6,7 @@ using Orchard.DynamicForms.Services;
 using Orchard.Layouts.Services;
 using Orchard.Localization;
 using Orchard.Logging;
+using Orchard.Mvc.Extensions;
 using Orchard.Services;
 using Orchard.Tokens;
 using Orchard.UI.Notify;
@@ -66,7 +67,7 @@ namespace Orchard.DynamicForms.Controllers {
                 return new EmptyResult();
 
             var redirectUrl = !String.IsNullOrWhiteSpace(form.RedirectUrl) ? _tokenizer.Replace(form.RedirectUrl, new { Content = layoutPart.ContentItem }) : urlReferrer;
-            return Redirect(redirectUrl);
+            return this.RedirectLocal(redirectUrl);
         }
 
         bool IUpdateModel.TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties) {

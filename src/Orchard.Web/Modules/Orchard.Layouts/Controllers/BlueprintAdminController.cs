@@ -13,6 +13,7 @@ using Orchard.Layouts.Services;
 using Orchard.Layouts.ViewModels;
 using Orchard.Localization;
 using Orchard.Mvc;
+using Orchard.Mvc.Extensions;
 using Orchard.UI.Admin;
 using Orchard.UI.Notify;
 
@@ -240,7 +241,7 @@ namespace Orchard.Layouts.Controllers {
 
             _elementBlueprintService.DeleteBlueprint(blueprint);
             _notifier.Information(T("That blueprint has been deleted."));
-            return Redirect(Request.UrlReferrer.ToString());
+            return this.RedirectLocal(Request.UrlReferrer.ToString());
         }
 
         [FormValueRequired("submit.BulkEdit")]
@@ -259,7 +260,7 @@ namespace Orchard.Layouts.Controllers {
                 _notifier.Information(T("{0} blueprints have been deleted.", numDeletedBlueprints));
             }
 
-            return Redirect(Request.UrlReferrer.ToString());
+            return this.RedirectLocal(Request.UrlReferrer.ToString());
         }
 
         private ElementEditorContext CreateEditorContext(Element element, ElementDataDictionary elementData = null) {

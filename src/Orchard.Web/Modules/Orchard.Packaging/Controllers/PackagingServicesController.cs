@@ -152,7 +152,7 @@ namespace Orchard.Packaging.Controllers {
                return View("InstallPackageFailed");
            }   
 
-           return Redirect(redirectUrl);
+           return this.RedirectLocal(redirectUrl);
         }
 
         public ActionResult InstallLocally(string redirectUrl) {
@@ -192,7 +192,7 @@ namespace Orchard.Packaging.Controllers {
                 return View("InstallPackageFailed");
             }
 
-            return Redirect(redirectUrl);
+            return this.RedirectLocal(redirectUrl);
         }
 
         private ActionResult InstallPackageDetails(ExtensionDescriptor extensionDescriptor, string redirectUrl) {
@@ -222,7 +222,7 @@ namespace Orchard.Packaging.Controllers {
                 }
             }
 
-            return Redirect(redirectUrl);
+            return this.RedirectLocal(redirectUrl);
         }
 
         [HttpPost, ActionName("InstallPackageDetails")]
@@ -269,7 +269,7 @@ namespace Orchard.Packaging.Controllers {
                 Services.Notifier.Error(T("Post installation steps failed with error: {0}", exception.Message));
             }
 
-            return Redirect(redirectUrl);
+            return this.RedirectLocal(redirectUrl);
         }
 
         private ActionResult UninstallPackage(string id, string returnUrl, string retryUrl) {
@@ -278,7 +278,7 @@ namespace Orchard.Packaging.Controllers {
             }
             catch (Exception exception) {
                 Services.Notifier.Error(T("Uninstall failed: {0}", exception.Message));
-                return Redirect(!String.IsNullOrEmpty(retryUrl) ? retryUrl : returnUrl);
+                return this.RedirectLocal(!String.IsNullOrEmpty(retryUrl) ? retryUrl : returnUrl);
             }
 
             Services.Notifier.Information(T("Uninstalled package \"{0}\"", id));
