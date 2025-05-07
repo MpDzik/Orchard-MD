@@ -52,9 +52,10 @@ namespace Orchard.Workflows.Services {
             // look for workflow definitions with a corresponding starting activity
             // it's important to return activities at this point and not workflows,
             // as a workflow definition could have multiple entry points with the same type of activity
-            startedWorkflows.AddRange(_activityRepository.Table.Where(
-                x =>x.Name == name && x.Start && x.WorkflowDefinitionRecord.Enabled
-                )
+            startedWorkflows.AddRange(
+                _activityRepository.Table
+                    .Fetch(x => x.WorkflowDefinitionRecord)
+                    .Where(x => x.Name == name && x.Start && x.WorkflowDefinitionRecord.Enabled)
             );
 
             var awaitingActivities = new List<AwaitingActivityRecord>();
